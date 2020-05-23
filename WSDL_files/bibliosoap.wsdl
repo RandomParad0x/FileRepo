@@ -227,7 +227,7 @@
     <!-- Service definition -->
     <service name="SOAPBiblioService">
         <port name="SOAPBiblioServicePort" binding="tns:SOAPBiblioServicePortBinding">
-            <soap:address location="http://localhost:8080/Livres"/>
+            <soap:address location="http://localhost:8080/SOAPBiblio/SOAPBiblioService"/>
         </port>
     </service>
 </definitions>
