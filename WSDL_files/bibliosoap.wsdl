@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions
+        xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+        targetNamespace="http://biblionuevo.com/"
+        xmlns:tns="http://biblionuevo.com/"
+        xmlns="http://schemas.xmlsoap.org/wsdl/"
+        name="SOAPBiblioService">
+
+    <!-- Définition des types utilisés -->
+    <types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"  targetNamespace="http://biblionuevo.com/">
+            <!-- Item types definition -->
+            <xs:complexType name="Livre"> <!-- Class Livre -->
+                <xs:sequence>
+                    <xs:element name="id" type="xs:int" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="nom" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="description" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="date_Publication" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="auteurs" type="tns:Auteur" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="genres" type="tns:Genre" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="Auteur"> <!-- Class Auteur -->
+                <xs:sequence>
+                    <xs:element name="id" type="xs:int" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="nom" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="Genre"> <!-- Class Genre -->
+                <xs:sequence>
+                    <xs:element name="id" type="xs:int" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="nom" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                </xs:sequence>
+            </xs:complexType>
+            <!--
+            <xs:complexType name="AuteurList">  List Auteur
+                <xs:sequence>
+                    <xs:element name="auteur" type="tns:Auteur" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="GenreList">  List Genre
+                <xs:sequence>
+                    <xs:element name="genre" type="tns:Genre" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:complexType> -->
+
+            <!--Operation type definition -->
+            <xs:element name="getLivres" type="tns:getLivres"/>
+            <xs:element name="getLivresResponse" type="tns:getLivresResponse"/>
+            <xs:element name="getLivreParId" type="tns:getLivreParId"/>
+            <xs:element name="getLivreParIdResponse" type="tns:getLivreParIdResponse"/>
+            <xs:element name="creerLivre" type="tns:creerLivre"/>
+            <xs:element name="creerLivreResponse" type="tns:creerLivreResponse"/>
+            <xs:element name="modifierLivre" type="tns:modifierLivre"/>
+            <xs:element name="modifierLivreResponse" type="tns:modifierLivreResponse"/>
+            <xs:element name="supprimerLivre" type="tns:supprimerLivre"/>
+            <xs:element name="supprimerLivreResponse" type="tns:supprimerLivreResponse"/>
+
+            <xs:complexType name="getLivres">
+                <xs:sequence>
+                    <xs:element name="nom" type="xs:string" minOccurs="0"/>
+                    <xs:element name="auteurId" type="xs:int" minOccurs="0"/>
+                    <xs:element name="genreId" type="xs:int" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getLivresResponse">
+                <xs:sequence>
+                    <xs:element name="livre" type="tns:Livre" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="getLivreParId">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:int" minOccurs="1"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getLivreParIdResponse">
+                <xs:sequence>
+                    <xs:element name="livre" type="tns:Livre" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="creerLivre">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:int" minOccurs="1"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="creerLivreResponse">
+                <xs:sequence>
+                    <xs:element name="success" type="xs:boolean" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="modifierLivre">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:int" minOccurs="1"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="modifierLivreResponse">
+                <xs:sequence>
+                    <xs:element name="success" type="xs:boolean" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="supprimerLivre">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:int" minOccurs="1"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="supprimerLivreResponse">
+                <xs:sequence>
+                    <xs:element name="success" type="xs:boolean" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </types>
+
+    <!-- Messages (paramètres pour les opérations) -->
+    <message name="getLivres">
+        <part name="parameters" element="tns:getLivres"/>
+    </message>
+    <message name="getLivresResponse">
+        <part name="parameters" element="tns:getLivresResponse"/>
+    </message>
+
+    <message name="getLivreParId">
+        <part name="parameters" element="tns:getLivreParId"/>
+    </message>
+    <message name="getLivreParIdResponse">
+        <part name="parameters" element="tns:getLivreParIdResponse"/>
+    </message>
+
+    <message name="creerLivre">
+        <part name="parameters" element="tns:creerLivre"/>
+    </message>
+    <message name="creerLivreResponse">
+        <part name="parameters" element="tns:creerLivreResponse"/>
+    </message>
+
+    <message name="modifierLivre">
+        <part name="parameters" element="tns:modifierLivre"/>
+    </message>
+    <message name="modifierLivreResponse">
+        <part name="parameters" element="tns:modifierLivreResponse"/>
+    </message>
+
+    <message name="supprimerLivre">
+        <part name="parameters" element="tns:supprimerLivre"/>
+    </message>
+    <message name="supprimerLivreResponse">
+        <part name="parameters" element="tns:supprimerLivreResponse"/>
+    </message>
+
+    <!-- Port Type -->
+    <portType name="SOAPBiblioService">
+        <operation name="getLivres">
+            <input message="tns:getLivres"/>
+            <output message="tns:getLivresResponse"/>
+        </operation>
+        <operation name="getLivreParId">
+            <input message="tns:getLivreParId"/>
+            <output message="tns:getLivreParIdResponse"/>
+        </operation>
+        <operation name="creerLivre">
+            <input message="tns:creerLivre"/>
+            <output message="tns:creerLivreResponse"/>
+        </operation>
+        <operation name="modifierLivre">
+            <input message="tns:modifierLivre"/>
+            <output message="tns:modifierLivreResponse"/>
+        </operation>
+        <operation name="supprimerLivre">
+            <input message="tns:supprimerLivre"/>
+            <output message="tns:supprimerLivreResponse"/>
+        </operation>
+    </portType>
+
+    <!-- Binding operations -->
+    <binding name="SOAPBiblioServicePortBinding" type="tns:SOAPBiblioService">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <operation name="getLivres">
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="getLivreParId">
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="creerLivre">
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="modifierLivre">
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="supprimerLivre">
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <!-- Service definition -->
+    <service name="Livres">
+        <port name="SOAPBiblioServicePort" binding="tns:SOAPBiblioServicePortBinding">
+            <soap:address location="http://localhost:8080/SOAPBiblio/Livres"/>
+        </port>
+    </service>
+</definitions>
+
