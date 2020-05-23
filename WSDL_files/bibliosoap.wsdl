@@ -86,7 +86,7 @@
 
             <xs:complexType name="creerLivre">
                 <xs:sequence>
-                    <xs:element name="id" type="xs:int" minOccurs="1"/>
+                    <xs:element name="livre" type="tns:Livre" minOccurs="1"/>
                 </xs:sequence>
             </xs:complexType>
             <xs:complexType name="creerLivreResponse">
@@ -97,7 +97,7 @@
 
             <xs:complexType name="modifierLivre">
                 <xs:sequence>
-                    <xs:element name="id" type="xs:int" minOccurs="1"/>
+                    <xs:element name="livre" type="tns:Livre" minOccurs="1"/>
                 </xs:sequence>
             </xs:complexType>
             <xs:complexType name="modifierLivreResponse">
@@ -224,7 +224,7 @@
         </operation>
     </binding>
 
-    <!-- Service definition -->
+    <!-- soapbiblio definition -->
     <service name="Livres">
         <port name="SOAPBiblioServicePort" binding="tns:SOAPBiblioServicePortBinding">
             <soap:address location="http://localhost:8080/SOAPBiblio/Livres"/>
